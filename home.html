@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FGT — Football Game Tournament</title>
+
+  <meta name="description" content="FGT is a football gaming tournament platform where players can discover tournaments, compete in matches, track results, manage their gaming activities and use an in-app wallet for supported tournament payments.">
+
+  <meta name="theme-color" content="#071a12">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #071a12;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 26, 18, 0.96);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #18c477;
+      color: #071a12;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #d8e8df;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: #20dc8a;
+    }
+
+    .menu-btn {
+      display: none;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(24,196,119,0.20), transparent 30%),
+        radial-gradient(circle at 10% 80%, rgba(24,196,119,0.12), transparent 35%),
+        #071a12;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      padding: 90px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 50px;
+      background: rgba(24,196,119,0.12);
+      border: 1px solid rgba(24,196,119,0.25);
+      color: #30e593;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: 1.02;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: #20dc8a;
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: #b7cbc1;
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .btn-primary {
+      background: #18c477;
+      color: #06170f;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #25e18a;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.09);
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      max-width: 700px;
+      margin-bottom: 45px;
+    }
+
+    .section-title small {
+      color: #20dc8a;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin: 10px 0 15px;
+    }
+
+    .section-title p {
+      color: #9eb4a9;
+    }
+
+    .dark-section {
+      background: #05140e;
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: rgba(24,196,119,0.13);
+      color: #25e18a;
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .card p {
+      color: #9eb4a9;
+      font-size: 14px;
+    }
+
+    /* HOW IT WORKS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      position: relative;
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .number {
+      font-size: 13px;
+      font-weight: 900;
+      color: #20dc8a;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: #9eb4a9;
+      font-size: 14px;
+    }
+
+    /* TOURNAMENT */
+
+    .tournament-box {
+      padding: 40px;
+      border-radius: 25px;
+      border: 1px solid rgba(24,196,119,0.20);
+      background:
+        linear-gradient(135deg, rgba(24,196,119,0.10), rgba(255,255,255,0.025));
+    }
+
+    .tournament-box h2 {
+      font-size: 34px;
+      margin-bottom: 15px;
+    }
+
+    .tournament-box p {
+      color: #b1c7bc;
+      max-width: 760px;
+    }
+
+    .tournament-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .pill {
+      padding: 9px 13px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.06);
+      color: #d8e8df;
+      font-size: 13px;
+    }
+
+    /* WALLET */
+
+    .wallet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: stretch;
+    }
+
+    .wallet-card {
+      padding: 35px;
+      border-radius: 22px;
+      background: #0a2418;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .wallet-card h3 {
+      margin-bottom: 15px;
+      font-size: 25px;
+    }
+
+    .wallet-card p,
+    .wallet-card li {
+      color: #a8beb3;
+      font-size: 14px;
+    }
+
+    .wallet-card ul {
+      padding-left: 20px;
+      margin-top: 15px;
+    }
+
+    .wallet-card li {
+      margin-bottom: 8px;
+    }
+
+    /* FAQ */
+
+    .faq {
+      max-width: 850px;
+    }
+
+    details {
+      margin-bottom: 12px;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    details p {
+      color: #9eb4a9;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    /* CONTACT */
+
+    .contact-box {
+      text-align: center;
+      padding: 55px 25px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #0b3020, #071a12);
+      border: 1px solid rgba(24,196,119,0.18);
+    }
+
+    .contact-box h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .contact-box p {
+      color: #a8beb3;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 45px 0 25px;
+      background: #030d09;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 35px;
+    }
+
+    footer h3 {
+      margin-bottom: 13px;
+    }
+
+    footer p,
+    footer a {
+      color: #81988d;
+      font-size: 14px;
+    }
+
+    footer a:hover {
+      color: #20dc8a;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .copyright {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      text-align: center;
+      color: #62786d;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .wallet {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        background: #071a12;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .grid,
+      .steps,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-content {
+        padding: 75px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .tournament-box,
+      .wallet-card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <header>
+    <div class="container nav">
+
+      <a href="#home" class="logo">
+        <span class="logo-icon">FG</span>
+        <span>FGT</span>
+      </a>
+
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="closeMenu()">Home</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#tournaments" onclick="closeMenu()">Tournaments</a></li>
+        <li><a href="#how-it-works" onclick="closeMenu()">How It Works</a></li>
+        <li><a href="#wallet" onclick="closeMenu()">Wallet</a></li>
+        <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
+        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      </ul>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-content">
+
+          <div class="badge">
+            FOOTBALL GAMING TOURNAMENT PLATFORM
+          </div>
+
+          <h1>
+            Play. Compete.<br>
+            <span>Rise to the Top.</span>
+          </h1>
+
+          <p>
+            FGT brings football gaming players together in an organized
+            tournament environment where players can discover competitions,
+            join matches, track results, follow standings and compete for
+            tournament prizes.
+          </p>
+
+          <div class="buttons">
+            <a href="#how-it-works" class="btn btn-primary">
+              Explore FGT
+            </a>
+
+            <a href="#tournaments" class="btn btn-secondary">
+              View Tournaments
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>About FGT</small>
+
+          <h2>
+            A better way to organize football gaming competitions.
+          </h2>
+
+          <p>
+            FGT (Football Game Tournament) is a digital tournament platform
+            created to make competitive football gaming more organized,
+            accessible and easier to manage.
+          </p>
+
+        </div>
+
+
+        <div class="grid">
+
+          <div class="card">
+
+            <div class="card-icon">🏆</div>
+
+            <h3>Competitive Tournaments</h3>
+
+            <p>
+              Discover and join organized football gaming competitions
+              with defined rules, schedules, entry requirements and
+              tournament information.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-icon">⚽</div>
+
+            <h3>Match Management</h3>
+
+            <p>
+              Players can view their matches, follow schedules, manage
+              results and follow tournament progress.
+            </p>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-icon">📊</div>
+
+            <h3>Player Statistics</h3>
+
+            <p>
+              Keep track of matches, wins, tournament history,
+              achievements, standings and other available statistics.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOURNAMENTS -->
+
+    <section id="tournaments" class="dark-section">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>Tournaments</small>
+
+          <h2>
+            Find your next competition.
+          </h2>
+
+          <p>
+            FGT provides a structured environment for players to discover
+            available tournaments and understand the competition before
+            joining.
+          </p>
+
+        </div>
+
+
+        <div class="tournament-box">
+
+          <h2>
+            Everything players need before they compete.
+          </h2>
+
+          <p>
+            Tournament information can include entry fees, rules, dates,
+            match schedules, prize information and other requirements
+            relevant to the competition.
+          </p>
+
+          <div class="tournament-features">
+
+            <span class="pill">Tournament Rules</span>
+            <span class="pill">Entry Fees</span>
+            <span class="pill">Match Schedules</span>
+            <span class="pill">Standings</span>
+            <span class="pill">Results</span>
+            <span class="pill">Prize Information</span>
+            <span class="pill">Tournament History</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section id="how-it-works">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>How It Works</small>
+
+          <h2>
+            From registration to competition.
+          </h2>
+
+          <p>
+            FGT is designed to make the tournament process straightforward
+            for players.
+          </p>
+
+        </div>
+
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="number">01</div>
+            <h3>Create Your Profile</h3>
+            <p>
+              Create and manage your FGT player profile and account.
+            </p>
+          </div>
+
+
+          <div class="step">
+            <div class="number">02</div>
+            <h3>Find a Tournament</h3>
+            <p>
+              Explore available competitions and review their rules,
+              entry fees, dates and prize information.
+            </p>
+          </div>
+
+
+          <div class="step">
+            <div class="number">03</div>
+            <h3>Join & Play</h3>
+            <p>
+              Complete the required entry process, access your matches
+              and compete according to the tournament rules.
+            </p>
+          </div>
+
+
+          <div class="step">
+            <div class="number">04</div>
+            <h3>Track Your Progress</h3>
+            <p>
+              Follow match results, standings, statistics and tournament
+              progress from your FGT account.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- WALLET -->
+
+    <section id="wallet" class="dark-section">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>FGT Wallet</small>
+
+          <h2>
+            A wallet designed for supported tournament activities.
+          </h2>
+
+          <p>
+            The FGT wallet provides a central balance that can be used for
+            supported tournament-related activities.
+          </p>
+
+        </div>
+
+
+        <div class="wallet">
+
+          <div class="wallet-card">
+
+            <h3>Wallet Features</h3>
+
+            <p>
+              Users can manage their FGT wallet and view relevant
+              transaction information.
+            </p>
+
+            <ul>
+              <li>Add funds through supported payment methods.</li>
+              <li>View wallet transactions.</li>
+              <li>Review payment history.</li>
+              <li>Use available funds for supported tournament activities.</li>
+            </ul>
+
+          </div>
+
+
+          <div class="wallet-card">
+
+            <h3>Payment Processing</h3>
+
+            <p>
+              FGT may use third-party payment infrastructure to process
+              applicable payments securely.
+            </p>
+
+            <ul>
+              <li>Payment processing is handled by the applicable provider.</li>
+              <li>Payments are verified before wallet funds are credited.</li>
+              <li>FGT does not rely solely on the mobile application's payment-success screen.</li>
+              <li>Transaction records are maintained for supported wallet activities.</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>Platform Features</small>
+
+          <h2>
+            More than just tournaments.
+          </h2>
+
+          <p>
+            FGT combines tournament management, player activity and
+            account features in one platform.
+          </p>
+
+        </div>
+
+
+        <div class="grid">
+
+          <div class="card">
+            <div class="card-icon">👤</div>
+            <h3>Player Profiles</h3>
+            <p>
+              Manage your profile, achievements, statistics and
+              tournament history.
+            </p>
+          </div>
+
+
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Communication</h3>
+            <p>
+              Access platform messaging and receive relevant
+              tournament and account notifications.
+            </p>
+          </div>
+
+
+          <div class="card">
+            <div class="card-icon">🔔</div>
+            <h3>Notifications</h3>
+            <p>
+              Stay informed about tournaments, matches, payments and
+              important account activity.
+            </p>
+          </div>
+
+
+          <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Standings</h3>
+            <p>
+              Follow tournament standings and available competition
+              statistics.
+            </p>
+          </div>
+
+
+          <div class="card">
+            <div class="card-icon">🏅</div>
+            <h3>Achievements</h3>
+            <p>
+              Track available achievements and your history across
+              supported competitions.
+            </p>
+          </div>
+
+
+          <div class="card">
+            <div class="card-icon">🔐</div>
+            <h3>Account Security</h3>
+            <p>
+              FGT is designed with account and transaction security
+              in mind.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section id="faq" class="dark-section">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <small>FAQ</small>
+
+          <h2>
+            Frequently Asked Questions
+          </h2>
+
+        </div>
+
+
+        <div class="faq">
+
+          <details>
+            <summary>What is FGT?</summary>
+            <p>
+              FGT stands for Football Game Tournament. It is a digital
+              platform designed to organize competitive football gaming
+              tournaments and help players manage their tournament
+              activities.
+            </p>
+          </details>
+
+
+          <details>
+            <summary>How can I join a tournament?</summary>
+            <p>
+              Players can explore available tournaments, review the
+              tournament information and complete the required joining
+              process for the selected competition.
+            </p>
+          </details>
+
+
+          <details>
+            <summary>What can I use the FGT wallet for?</summary>
+            <p>
+              The FGT wallet is intended for supported tournament-related
+              activities, including applicable tournament entry payments
+              and other supported platform transactions.
+            </p>
+          </details>
+
+
+          <details>
+            <summary>How are wallet payments verified?</summary>
+            <p>
+              Applicable payments are verified through the payment
+              processing infrastructure before funds are credited to
+              a user's FGT wallet.
+            </p>
+          </details>
+
+
+          <details>
+            <summary>Does FGT operate its own payment network?</summary>
+            <p>
+              No. FGT may use third-party payment providers to process
+              applicable transactions. The payment provider processes
+              the payment while FGT manages the corresponding platform
+              transaction and wallet records.
+            </p>
+          </details>
+
+
+          <details>
+            <summary>Are prizes guaranteed?</summary>
+            <p>
+              Prize availability, eligibility and conditions depend on
+              the specific tournament and its published rules. Players
+              should review the tournament information before joining.
+            </p>
+          </details>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+
+      <div class="container">
+
+        <div class="contact-box">
+
+          <h2>Need help?</h2>
+
+          <p>
+            For questions about FGT, tournaments, payments, accounts or
+            other platform-related matters, please contact the FGT support
+            team.
+          </p>
+
+          <!-- Replace this email with your real business/support email -->
+          <a href="mailto:YOUR_EMAIL@example.com" class="btn btn-primary">
+            Contact FGT Support
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <div class="logo">
+            <span class="logo-icon">FG</span>
+            <span>FGT</span>
+          </div>
+
+          <p style="margin-top:15px; max-width:430px;">
+            FGT (Football Game Tournament) is a digital platform for
+            organized football gaming competitions, player activities,
+            tournament management and supported tournament payments.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h3>Platform</h3>
+
+          <div class="footer-links">
+            <a href="#about">About FGT</a>
+            <a href="#tournaments">Tournaments</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#wallet">FGT Wallet</a>
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <h3>Information</h3>
+
+          <div class="footer-links">
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="copyright">
+        © <span id="year"></span> FGT — Football Game Tournament. All rights reserved.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+
+    function closeMenu() {
+      document.getElementById("navLinks").classList.remove("active");
+    }
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+</body>
+</html>
